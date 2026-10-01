@@ -47,7 +47,7 @@ class Prefs(private val context: Context) {
     suspend fun setShowDock(v: Boolean) = context.store.edit { it[SHOW_DOCK] = v }
     suspend fun setShowLabels(v: Boolean) = context.store.edit { it[SHOW_LABELS] = v }
     suspend fun toggleDock(key: String, dockNow: Set<String>) = context.store.edit {
-        it[DOCK] = if (key in dockNow) dockNow - key else (dockNow + key).takeLast(8).toSet()
+        it[DOCK] = if (key in dockNow) dockNow - key else (dockNow + key).toList().takeLast(8).toSet()
     }
     suspend fun saveFolders(encoded: Set<String>) = context.store.edit { it[FOLDERS] = encoded }
 
