@@ -1,32 +1,16 @@
-# System Launcher — Nova-style power, Last Launcher speed
+# System Launcher — Last Launcher inspired, with icon logos
 
-Minimal text-first launcher **with icon logos**, now with **Nova Launcher-style** home:
-Nova grid + dock + folders + drawer grid, forked from Last Launcher ideas (fast search, text-only mode).
+Minimal text-first Android launcher inspired by Last Launcher (speed, instant search,
+keyboard-first) **plus real app icon logos** next to each label.
 
-## Home (Nova grid, default)
-- Grid of pinned apps (3–6 columns setting) + folders
-- Dock row at bottom (up to 8 apps, toggleable) — Nova signature
-- Long-press any icon: Pin / Dock / Rename / Hide / Folders / Info / Uninstall
-- Folders: create from long-press menu, open from home, add/remove members
-
-## Drawer (Nova-style)
-- Searchable grid (3–6 columns) with instant filter
-- Auto-launch single match (Last Launcher behavior, keyboard-first)
-- Long-press: pin to home, add to dock, folders
-
-## Last Launcher mode (preserved)
-- Settings → Home style → **Last list**: pure text list, no grid
-- Settings → Text-only: hides all icons everywhere
-- Fast search, hidden apps, aliases, AMOLED dark
-
-## Settings
-- Home style Nova grid / Last list, home+drawer columns, dock, labels
-- Icons ON/OFF, icon size 32–72dp, theme System/Light/Dark
-- Unhide, refresh
+- Single-page home: pinned `[icon + name]` rows, then all apps
+- Instant search, auto-launch single match, keyboard-first
+- Long-press: pin / rename alias / hide / app-info / uninstall
+- Settings: icons ON/OFF (pure text-only Last mode), icon size, Light/Dark
+- Fresh codebase (Kotlin + Compose + Material3 + DataStore), Apache-2.0
 
 ## APK — GitHub Actions ONLY
 Push to `main` → Actions → Build APK → download `system-launcher-debug` (`app-debug.apk`).
 `adb install`, set as Default Home.
 
-Tech: Kotlin + Compose + Material3 + DataStore, `minSdk 26`, `targetSdk 34`.
-Icons via `PackageManager` + `LruCache(100)`, adaptive-icon safe.
+Tech: `minSdk 26`, `targetSdk 34`. Icons via `PackageManager` + `LruCache(100)`.

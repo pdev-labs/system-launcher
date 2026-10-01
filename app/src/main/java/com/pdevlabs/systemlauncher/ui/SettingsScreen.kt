@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -19,44 +17,12 @@ import androidx.compose.ui.unit.dp
 import com.pdevlabs.systemlauncher.viewmodel.LauncherViewModel
 import kotlinx.coroutines.launch
 
+/** Last Launcher-inspired settings: icons, text-only, theme. No Nova options. */
 @Composable
 fun SettingsScreen(vm: LauncherViewModel, onShowHidden: () -> Unit) {
     val s = vm.state.collectAsState().value
     val scope = rememberCoroutineScope()
-    Column(Modifier.padding(20.dp).verticalScroll(rememberScrollState())) {
-        Text("Home style (Nova vs Last)")
-        Row {
-            TextButton(onClick = { scope.launch { vm.settings.setHomeLayout(0) } }) {
-                Text(if (s.homeLayout == 0) "● Nova grid" else "Nova grid")
-            }
-            TextButton(onClick = { scope.launch { vm.settings.setHomeLayout(1) } }) {
-                Text(if (s.homeLayout == 1) "● Last list" else "Last list")
-            }
-        }
-        Text("Home columns: ${s.homeColumns}")
-        Slider(
-            value = s.homeColumns.toFloat(),
-            onValueChange = { scope.launch { vm.settings.setHomeColumns(it.toInt()) } },
-            valueRange = 3f..6f, steps = 2
-        )
-        Text("Drawer columns: ${s.drawerColumns}")
-        Slider(
-            value = s.drawerColumns.toFloat(),
-            onValueChange = { scope.launch { vm.settings.setDrawerColumns(it.toInt()) } },
-            valueRange = 3f..6f, steps = 2
-        )
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Text("Show dock", Modifier.weight(1f))
-            Switch(checked = s.showDock, onCheckedChange = {
-                scope.launch { vm.settings.setShowDock(it) }
-            })
-        }
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Text("Show labels under icons", Modifier.weight(1f))
-            Switch(checked = s.showLabels, onCheckedChange = {
-                scope.launch { vm.settings.setShowLabels(it) }
-            })
-        }
+    Column(Modifier.padding(20.dp)) {
         Text("Appearance")
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             Text("Show icon logos", Modifier.weight(1f))
@@ -65,7 +31,7 @@ fun SettingsScreen(vm: LauncherViewModel, onShowHidden: () -> Unit) {
             })
         }
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Text("Text-only (Last Launcher mode)", Modifier.weight(1f))
+            Text("Text-only (pure Last Launcher)", Modifier.weight(1f))
             Switch(checked = s.textOnly, onCheckedChange = {
                 scope.launch { vm.settings.setTextOnly(it) }
             })
@@ -86,7 +52,6 @@ fun SettingsScreen(vm: LauncherViewModel, onShowHidden: () -> Unit) {
             TextButton(onClick = { scope.launch { vm.settings.setTheme(2) } }) { Text("Dark") }
         }
         TextButton(onClick = onShowHidden) { Text("Unhide apps (${s.hidden.size} hidden)") }
-        Text("Folders: ${s.folders.size} on Home. Long-press → create/add.", Modifier.padding(top = 4.dp))
-        Text("Tip: Home=Nova grid+dock+folders. Drawer=search grid. Last list=text mode.", Modifier.padding(top = 12.dp))
+        Text("Tip: long-press any row for pin / rename / hide / uninstall.", Modifier.padding(top = 12.dp))
     }
 }
