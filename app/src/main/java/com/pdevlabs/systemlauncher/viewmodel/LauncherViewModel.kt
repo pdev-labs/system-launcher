@@ -47,7 +47,7 @@ class LauncherViewModel(app: Application) : AndroidViewModel(app) {
     val state: StateFlow<LauncherUiState> = combine(
         _query, _apps, _loading,
         prefs.pinned, prefs.hidden, prefs.aliases,
-        prefs.showIcons, prefs.textOnly, prefs.iconSizeDp
+        prefs.showIcons, prefs.textOnly, prefs.iconSize
     ) { arr ->
         @Suppress("UNCHECKED_CAST")
         LauncherUiState(
