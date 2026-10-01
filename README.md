@@ -1,24 +1,32 @@
-# System Launcher
+# System Launcher — Nova-style power, Last Launcher speed
 
-Minimal text-first Android launcher **with icon logos** — inspired by Last Launcher (text-only speed) but shows real app icons next to each label.
+Minimal text-first launcher **with icon logos**, now with **Nova Launcher-style** home:
+Nova grid + dock + folders + drawer grid, forked from Last Launcher ideas (fast search, text-only mode).
 
-- Home: pinned `[icon + name]` rows, tap to launch, long-press for pin / rename / hide / info / uninstall
-- Drawer + instant search, auto-launch single match, keyboard-first
-- Settings: Show icons ON/OFF (pure text-only Last-Launcher mode), icon size, Light/Dark/AMOLED
-- Fresh codebase (Kotlin + Compose + Material3 + DataStore), Apache-2.0
+## Home (Nova grid, default)
+- Grid of pinned apps (3–6 columns setting) + folders
+- Dock row at bottom (up to 8 apps, toggleable) — Nova signature
+- Long-press any icon: Pin / Dock / Rename / Hide / Folders / Info / Uninstall
+- Folders: create from long-press menu, open from home, add/remove members
+
+## Drawer (Nova-style)
+- Searchable grid (3–6 columns) with instant filter
+- Auto-launch single match (Last Launcher behavior, keyboard-first)
+- Long-press: pin to home, add to dock, folders
+
+## Last Launcher mode (preserved)
+- Settings → Home style → **Last list**: pure text list, no grid
+- Settings → Text-only: hides all icons everywhere
+- Fast search, hidden apps, aliases, AMOLED dark
+
+## Settings
+- Home style Nova grid / Last list, home+drawer columns, dock, labels
+- Icons ON/OFF, icon size 32–72dp, theme System/Light/Dark
+- Unhide, refresh
 
 ## APK — GitHub Actions ONLY
+Push to `main` → Actions → Build APK → download `system-launcher-debug` (`app-debug.apk`).
+`adb install`, set as Default Home.
 
-APKs are **never built locally**. Every push to `main` builds in CI:
-
-1. Push code
-2. GitHub > Actions > Build APK > download `system-launcher-debug` artifact (`app-debug.apk`)
-3. `adb install app-debug.apk`, set as Default Home to test
-
-Release signing (optional V2): add `KEYSTORE_BASE64 / KEYSTORE_PASSWORD / KEY_ALIAS / KEY_PASSWORD` secrets + `release.yml` on `v*` tags.
-
-## Project
-
-- `applicationId: com.pdevlabs.systemlauncher`, `minSdk 26`, `targetSdk 34`
-- Icons loaded via `PackageManager` + `LruCache(100)`, off main thread, adaptive-icon safe
-- Launcher icon: `res/mipmap-anydpi-v26` adaptive + monochrome for themed icons
+Tech: Kotlin + Compose + Material3 + DataStore, `minSdk 26`, `targetSdk 34`.
+Icons via `PackageManager` + `LruCache(100)`, adaptive-icon safe.
